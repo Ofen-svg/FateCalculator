@@ -1,0 +1,37 @@
+<UserControl x:Class="FateCalculator.Views.BattleControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Margin="5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="320"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Левая панель: добавление участников -->
+        <StackPanel Grid.Column="0" Margin="0,0,12,0">
+            <TextBlock Text="Участники боя" Style="{StaticResource HeaderText}"/>
+            <ComboBox x:Name="CharacterPicker" DisplayMemberPath="Name" Margin="0,0,0,6"/>
+            <Button Content="+ Добавить в бой" Click="AddParticipant_Click" Margin="0,0,0,12"/>
+            <ListBox x:Name="ParticipantsListBox" DisplayMemberPath="Name" Height="260"/>
+            <Button Content="Удалить выбранного" Click="RemoveParticipant_Click" Margin="0,6,0,0"/>
+            <Separator Margin="0,12,0,12"/>
+            <Button Content="Завершить бой (сохранить и запустить регенерацию)" Click="EndBattle_Click"/>
+        </StackPanel>
+
+        <!-- Правая панель: очередь ходов и состояние участников -->
+        <DockPanel Grid.Column="1">
+            <Border DockPanel.Dock="Top" Background="{StaticResource BgPanel}" BorderBrush="{StaticResource GoldSoft}" BorderThickness="1" Padding="10" Margin="0,0,0,10">
+                <StackPanel>
+                    <TextBlock x:Name="RoundLabel" Text="Раунд: 1" Style="{StaticResource HeaderText}" FontSize="18"/>
+                    <TextBlock x:Name="CurrentTurnLabel" Text="Сейчас ходит: —" FontWeight="Bold" Foreground="{StaticResource GoldAccent}" FontSize="16" Margin="0,2,0,6"/>
+                    <TextBlock x:Name="TurnOrderLabel" Text="Очередь: —" TextWrapping="Wrap" Style="{StaticResource SubText}"/>
+                    <Button Content="Следующий ход ▶" Click="NextTurn_Click" Margin="0,8,0,0" HorizontalAlignment="Left"/>
+                </StackPanel>
+            </Border>
+
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ItemsControl x:Name="ParticipantCardsList"/>
+            </ScrollViewer>
+        </DockPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,128 @@
+<Window x:Class="FateCalculator.Views.CharacterEditorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Редактор персонажа" Height="780" Width="950" WindowStartupLocation="CenterOwner">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Margin="15">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="230"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Картинка -->
+            <StackPanel Grid.Column="0" Margin="0,0,15,0">
+                <TextBlock Text="Изображение" Style="{StaticResource HeaderText}"/>
+                <Border BorderBrush="{StaticResource GoldSoft}" BorderThickness="2" Width="200" Height="260" Background="{StaticResource BgPanel}">
+                    <Image x:Name="PreviewImage" Stretch="UniformToFill"/>
+                </Border>
+                <Button Content="Выбрать файл..." Margin="0,8,0,0" Click="ChooseImage_Click"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1">
+
+                <TextBlock Text="Показатель" Style="{StaticResource HeaderText}"/>
+
+                <TextBlock Text="Имя:" Style="{StaticResource SubText}"/>
+                <TextBox x:Name="NameBox" Margin="0,2,0,8"/>
+
+                <TextBlock Text="Класс:" Style="{StaticResource SubText}"/>
+                <ComboBox x:Name="ClassBox" Margin="0,2,0,8"/>
+
+                <Grid Margin="0,0,0,8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Margin="0,0,8,0">
+                        <TextBlock Text="Рост (см):" Style="{StaticResource SubText}"/>
+                        <TextBox x:Name="HeightBox"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1">
+                        <TextBlock Text="Вес (кг):" Style="{StaticResource SubText}"/>
+                        <TextBox x:Name="WeightBox"/>
+                    </StackPanel>
+                </Grid>
+
+                <TextBlock Text="Мировоззрение:" Style="{StaticResource SubText}"/>
+                <ComboBox x:Name="AlignmentBox" Margin="0,2,0,12"/>
+
+                <Separator Margin="0,0,0,12"/>
+                <TextBlock Text="Параметры" Style="{StaticResource HeaderText}"/>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,0,8,8">
+                        <TextBlock Text="Сила:" Style="{StaticResource SubText}"/>
+                        <ComboBox x:Name="StrengthBox"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="0" Grid.Column="1" Margin="0,0,8,8">
+                        <TextBlock Text="Выносливость:" Style="{StaticResource SubText}"/>
+                        <ComboBox x:Name="EnduranceBox"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="0" Grid.Column="2" Margin="0,0,0,8">
+                        <TextBlock Text="Ловкость:" Style="{StaticResource SubText}"/>
+                        <ComboBox x:Name="AgilityBox"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,0,8,8">
+                        <TextBlock Text="Магическая Энергия:" Style="{StaticResource SubText}"/>
+                        <ComboBox x:Name="MagicBox"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Grid.Column="1" Margin="0,0,8,8">
+                        <TextBlock Text="Удача:" Style="{StaticResource SubText}"/>
+                        <ComboBox x:Name="LuckBox"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Grid.Column="2" Margin="0,0,0,8">
+                        <TextBlock Text="Небесный Фантазм:" Style="{StaticResource SubText}"/>
+                        <ComboBox x:Name="NpRankBox"/>
+                    </StackPanel>
+                </Grid>
+
+                <Separator Margin="0,8,0,12"/>
+                <TextBlock Text="Текущие HP / Мана (можно скорректировать вручную)" Style="{StaticResource HeaderText}" FontSize="16"/>
+                <Grid Margin="0,0,0,12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Margin="0,0,8,0">
+                        <TextBlock Text="Текущее HP:" Style="{StaticResource SubText}"/>
+                        <TextBox x:Name="CurrentHpBox"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1">
+                        <TextBlock Text="Текущая Мана:" Style="{StaticResource SubText}"/>
+                        <TextBox x:Name="CurrentManaBox"/>
+                    </StackPanel>
+                </Grid>
+
+                <Separator Margin="0,0,0,12"/>
+                <DockPanel Margin="0,0,0,8">
+                    <TextBlock Text="Навыки" Style="{StaticResource HeaderText}" DockPanel.Dock="Left"/>
+                    <Button Content="+ Добавить навык" DockPanel.Dock="Right" HorizontalAlignment="Right" Click="AddSkill_Click"/>
+                </DockPanel>
+                <ItemsControl x:Name="SkillsList" Margin="0,0,0,12"/>
+
+                <DockPanel Margin="0,0,0,8">
+                    <TextBlock Text="Небесный Фантазм (скиллы)" Style="{StaticResource HeaderText}" DockPanel.Dock="Left"/>
+                    <Button Content="+ Добавить НФ" DockPanel.Dock="Right" HorizontalAlignment="Right" Click="AddNp_Click"/>
+                </DockPanel>
+                <ItemsControl x:Name="NpList" Margin="0,0,0,12"/>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+                    <Button Content="Отмена" Margin="0,0,8,0" Click="Cancel_Click"/>
+                    <Button Content="Сохранить" Click="Save_Click"/>
+                </StackPanel>
+
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</Window>
